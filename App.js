@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   StyleSheet,
@@ -8,39 +9,46 @@ import {
   TextInput,
   View,
 } from "react-native";
+import Loading from "./src/components/Loading";
 
 export default function App() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={require("./assets/images/loginIcon.png")}
       />
-      <Text>Name</Text>
+      <Text>E-Mail</Text>
       <TextInput
+        inputMode="email"
         style={styles.textInput}
         value={name}
         onChangeText={setName}
-        placeholder="Your Name"
+        placeholder="Your E-Mail"
       />
-      <Text>Surname</Text>
+      <Text>Password</Text>
       <TextInput
+        secureTextEntry={true}
         style={styles.textInput}
         value={surname}
         onChangeText={setSurname}
-        placeholder="Your Surname"
+        placeholder="Your Password"
       />
       <Pressable
         style={({ pressed }) => [
           { backgroundColor: pressed ? "gray" : "#8E24AA" },
           styles.button,
         ]}
-        onPress={() => {}}
+        onPress={() => {
+          setIsLoading(true);
+        }}
       >
         <Text style={styles.buttonText}>Save</Text>
       </Pressable>
+      {isLoading ? <Loading /> : null}
     </View>
   );
 }
