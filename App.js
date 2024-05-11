@@ -15,7 +15,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Image
-        style={{ width: 50, height: 50 }}
+        style={styles.image}
         source={require("./assets/images/loginIcon.png")}
       />
       <Text>Name</Text>
@@ -34,10 +34,10 @@ export default function App() {
       />
       <Pressable
         style={({ pressed }) => [
-          { backgroundColor: pressed ? "gray" : "rebeccapurple" },
+          { backgroundColor: pressed ? "gray" : "#8E24AA" },
           styles.button,
         ]}
-        onPress={() => alert(`${name} ${surname}`)}
+        onPress={() => {}}
       >
         <Text style={styles.buttonText}>Save</Text>
       </Pressable>
@@ -72,5 +72,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "bold",
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginBottom: "10%",
+    marginTop: "-20%",
   },
 });
