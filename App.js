@@ -1,12 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function App() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   return (
     <View style={styles.container}>
+      <Image
+        style={{ width: 50, height: 50 }}
+        source={require("./assets/images/loginIcon.png")}
+      />
       <Text>Name</Text>
       <TextInput
         style={styles.textInput}
