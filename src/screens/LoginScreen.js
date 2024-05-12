@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Loading from "../components/Loading";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,22 +19,26 @@ const LoginScreen = () => {
         style={styles.image}
         source={require("../../assets/images/loginIcon.png")}
       />
-      <Text>E-Mail</Text>
-      <TextInput
-        inputMode="email"
-        style={styles.textInput}
-        value={name}
-        onChangeText={setName}
-        placeholder="Your E-Mail"
-      />
-      <Text>Password</Text>
-      <TextInput
-        secureTextEntry={true}
-        style={styles.textInput}
-        value={surname}
-        onChangeText={setSurname}
-        placeholder="Your Password"
-      />
+      <View style={styles.inputContainer}>
+        <Text>E-Mail</Text>
+        <TextInput
+          inputMode="email"
+          style={styles.textInput}
+          value={name}
+          onChangeText={setName}
+          placeholder="Your E-Mail"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Password</Text>
+        <TextInput
+          secureTextEntry={true}
+          style={styles.textInput}
+          value={surname}
+          onChangeText={setSurname}
+          placeholder="Your Password"
+        />
+      </View>
       <Pressable
         style={({ pressed }) => [
           { backgroundColor: pressed ? "gray" : "#8E24AA" },
@@ -44,7 +48,16 @@ const LoginScreen = () => {
           setIsLoading(true);
         }}
       >
-        <Text style={styles.buttonText}>Save</Text>
+        <Text style={styles.buttonText}>Login</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => navigation.navigate("SignUp")}
+        style={({ pressed }) => [
+          { backgroundColor: pressed ? "lightgray" : "gray" },
+          styles.signUpButton,
+        ]}
+      >
+        <Text style={styles.signUpText}>Sign Up</Text>
       </Pressable>
       {isLoading ? <Loading /> : null}
     </View>
@@ -60,12 +73,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  inputContainer: {
+    width: "80%",
+  },
   textInput: {
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 10,
     height: 50,
-    width: "80%",
+    width: "100%",
     textAlign: "center",
     marginVertical: 10,
   },
@@ -86,5 +102,17 @@ const styles = StyleSheet.create({
     height: 200,
     marginBottom: "10%",
     marginTop: "-20%",
+  },
+  signUpButton: {
+    marginTop: 40,
+    width: "20%",
+    height: 50,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  signUpText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
