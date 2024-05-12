@@ -8,10 +8,11 @@ import {
   View,
 } from "react-native";
 import Loading from "../components/Loading";
+import CustomTextInput from "../components/CustomTextInput";
 
 const LoginScreen = ({ navigation }) => {
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   return (
     <View style={styles.container}>
@@ -19,26 +20,22 @@ const LoginScreen = ({ navigation }) => {
         style={styles.image}
         source={require("../../assets/images/loginIcon.png")}
       />
-      <View style={styles.inputContainer}>
-        <Text>E-Mail</Text>
-        <TextInput
-          inputMode="email"
-          style={styles.textInput}
-          value={name}
-          onChangeText={setName}
-          placeholder="Your E-Mail"
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text>Password</Text>
-        <TextInput
-          secureTextEntry={true}
-          style={styles.textInput}
-          value={surname}
-          onChangeText={setSurname}
-          placeholder="Your Password"
-        />
-      </View>
+
+      <CustomTextInput
+        title="E-mail"
+        isSecureText={false}
+        handleOnChangeText={setEmail}
+        handleValue={email}
+        handlePlaceHolder="Your E-mail"
+      />
+      <CustomTextInput
+        title="Password"
+        isSecureText={true}
+        handleOnChangeText={setPassword}
+        handleValue={password}
+        handlePlaceHolder="Your Password"
+      />
+
       <Pressable
         style={({ pressed }) => [
           { backgroundColor: pressed ? "gray" : "#8E24AA" },
@@ -72,18 +69,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  inputContainer: {
-    width: "80%",
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: "black",
-    borderRadius: 10,
-    height: 50,
-    width: "100%",
-    textAlign: "center",
-    marginVertical: 10,
   },
   button: {
     borderRadius: 10,
