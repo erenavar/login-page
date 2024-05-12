@@ -1,14 +1,8 @@
 import { useState } from "react";
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import Loading from "../components/Loading";
 import CustomTextInput from "../components/CustomTextInput";
+import CustomButton from "../components/CustomButton";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -36,26 +30,22 @@ const LoginScreen = ({ navigation }) => {
         handlePlaceHolder="Your Password"
       />
 
-      <Pressable
-        style={({ pressed }) => [
-          { backgroundColor: pressed ? "gray" : "#8E24AA" },
-          styles.button,
-        ]}
-        onPress={() => {
-          setIsLoading(true);
-        }}
-      >
-        <Text style={styles.buttonText}>Login</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => navigation.navigate("SignUp")}
-        style={({ pressed }) => [
-          { backgroundColor: pressed ? "lightgray" : "gray" },
-          styles.signUpButton,
-        ]}
-      >
-        <Text style={styles.signUpText}>Sign Up</Text>
-      </Pressable>
+      <CustomButton
+        title="Login"
+        setWidth="80%"
+        handleOnPress={() => setIsLoading(true)}
+        buttonColor="#8E24AA"
+        pressedButtonColor="lightgray"
+      />
+
+      <CustomButton
+        title="Sign Up"
+        setWidth="20%"
+        handleOnPress={() => navigation.navigate("SignUp")}
+        buttonColor="gray"
+        pressedButtonColor="lightgray"
+      />
+
       {isLoading ? <Loading /> : null}
     </View>
   );
@@ -69,18 +59,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  button: {
-    borderRadius: 10,
-    height: 50,
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 50,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
   },
   image: {
     width: 200,
