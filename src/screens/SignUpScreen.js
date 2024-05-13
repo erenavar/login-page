@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import CustomTextInput from "../components/CustomTextInput";
 
@@ -7,30 +7,37 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <View style={styles.container}>
-      <Text>SignUpScreen</Text>
-      <CustomTextInput
-        title="Name"
-        isSecureText={false}
-        handleOnChangeText={setName}
-        handleValue={name}
-        handlePlaceHolder="Text Your Name"
-      />
-      <CustomTextInput
-        title="email"
-        isSecureText={false}
-        handleOnChangeText={setEmail}
-        handleValue={email}
-        handlePlaceHolder="Text Your Email"
-      />
-      <CustomTextInput
-        title="Password"
-        isSecureText={true}
-        handleOnChangeText={setPassword}
-        handleValue={password}
-        handlePlaceHolder="Text Your Password"
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text>SignUpScreen</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <CustomTextInput
+          title="Name"
+          isSecureText={false}
+          handleOnChangeText={setName}
+          handleValue={name}
+          handlePlaceHolder="Text Your Name"
+        />
+        <CustomTextInput
+          title="email"
+          isSecureText={false}
+          handleOnChangeText={setEmail}
+          handleValue={email}
+          handlePlaceHolder="Text Your Email"
+        />
+        <CustomTextInput
+          title="Password"
+          isSecureText={true}
+          handleOnChangeText={setPassword}
+          handleValue={password}
+          handlePlaceHolder="Text Your Password"
+        />
+      </View>
+      <View style={styles.loginOptions}>
+        <Text>Button Area</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -41,5 +48,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  inputContainer: {
+    flex: 2,
+    width: "100%",
+    alignItems: "center",
+  },
+  header: {
+    flex: 1,
+  },
+  loginOptions: {
+    flex: 3,
   },
 });
