@@ -1,6 +1,7 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import CustomTextInput from "../components/CustomTextInput";
+import CustomButton from "../components/CustomButton";
 
 const SignUpScreen = () => {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ const SignUpScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text>SignUpScreen</Text>
+        <Text style={styles.title}>Sign Up</Text>
       </View>
       <View style={styles.inputContainer}>
         <CustomTextInput
@@ -35,7 +36,13 @@ const SignUpScreen = () => {
         />
       </View>
       <View style={styles.loginOptions}>
-        <Text>Button Area</Text>
+        <CustomButton
+          title="Sign Up"
+          setWidth="80%"
+          buttonColor="purple"
+          pressedButtonColor="lighrgray"
+          handleOnPress={() => console.log(name, " ", email, "", password)}
+        />
       </View>
     </SafeAreaView>
   );
@@ -52,12 +59,20 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 2,
     width: "100%",
+    paddingVertical: 20,
     alignItems: "center",
   },
   header: {
     flex: 1,
   },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: "30",
+  },
   loginOptions: {
     flex: 3,
+    width: "100%",
+    alignItems: "center",
   },
 });
