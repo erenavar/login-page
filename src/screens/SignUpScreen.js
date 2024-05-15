@@ -1,15 +1,29 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+} from "react-native";
 import React, { useState } from "react";
 import CustomTextInput from "../components/CustomTextInput";
 import CustomButton from "../components/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 const SignUpScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/loginIcon.png")}
+        />
         <Text style={styles.title}>Sign Up</Text>
       </View>
       <View style={styles.inputContainer}>
@@ -21,7 +35,7 @@ const SignUpScreen = () => {
           handlePlaceHolder="Text Your Name"
         />
         <CustomTextInput
-          title="email"
+          title="E-mail"
           isSecureText={false}
           handleOnChangeText={setEmail}
           handleValue={email}
@@ -35,7 +49,7 @@ const SignUpScreen = () => {
           handlePlaceHolder="Text Your Password"
         />
       </View>
-      <View style={styles.loginOptions}>
+      <View style={styles.signUpOptions}>
         <CustomButton
           title="Sign Up"
           setWidth="80%"
@@ -43,6 +57,11 @@ const SignUpScreen = () => {
           pressedButtonColor="lighrgray"
           handleOnPress={() => console.log(name, " ", email, "", password)}
         />
+        <Pressable onPress={() => navigation.navigate("Login")}>
+          <Text style={{ fontWeight: "bold" }}>
+            Already have an account? Login
+          </Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -56,6 +75,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  image: {
+    width: 130,
+    height: 130,
+    marginBottom: "10%",
+  },
   inputContainer: {
     flex: 2,
     width: "100%",
@@ -63,16 +87,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    flex: 1,
+    flex: 2,
+    paddingTop: 50,
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: "30",
   },
-  loginOptions: {
-    flex: 3,
+  signUpOptions: {
+    flex: 2,
     width: "100%",
     alignItems: "center",
+    justifyContent: "space-evenly",
   },
 });
