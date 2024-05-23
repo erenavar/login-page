@@ -1,16 +1,14 @@
-import { useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
-import Loading from "../components/Loading";
 import CustomTextInput from "../components/CustomTextInput";
-import CustomButton from "../components/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
-import {setEmail,setPassword,setIsLoading} from "../redux/userSlice";
+import { setEmail, setPassword, setIsLoading } from "../redux/userSlice";
+import { useState } from "react";
+import CustomButton from "../components/CustomButton";
 
-
-  const {email,password,isLoading} = useSelector((state) => state.user)
+const LoginScreen = ({ navigation }) => {
+  const { email, password, isLoading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  s
 
 
   return (
@@ -23,14 +21,14 @@ import {setEmail,setPassword,setIsLoading} from "../redux/userSlice";
       <CustomTextInput
         title="E-mail"
         isSecureText={false}
-        handleOnChangeText={setEmail}
+        handleOnChangeText={(text) => dispatch(setEmail(text))}
         handleValue={email}
         handlePlaceHolder="Your E-mail"
       />
       <CustomTextInput
         title="Password"
         isSecureText={true}
-        handleOnChangeText={setPassword}
+        handleOnChangeText={(text) => dispatch(setPassword(text))}
         handleValue={password}
         handlePlaceHolder="Your Password"
       />

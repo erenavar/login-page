@@ -12,9 +12,9 @@ import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
 const SignUpScreen = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const navigation = useNavigation();
   return (
@@ -54,7 +54,7 @@ const SignUpScreen = () => {
           title="Sign Up"
           setWidth="80%"
           buttonColor="purple"
-          pressedButtonColor="lighrgray"
+          pressedButtonColor="lightgray"
           handleOnPress={() => console.log(name, " ", email, "", password)}
         />
         <Pressable onPress={() => navigation.navigate("Login")}>
