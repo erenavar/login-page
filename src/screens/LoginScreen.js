@@ -3,11 +3,16 @@ import { Image, StyleSheet, View } from "react-native";
 import Loading from "../components/Loading";
 import CustomTextInput from "../components/CustomTextInput";
 import CustomButton from "../components/CustomButton";
+import { useDispatch, useSelector } from "react-redux";
+import {setEmail,setPassword,setIsLoading} from "../redux/userSlice";
 
-const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const {email,password,isLoading} = useSelector((state) => state.user)
+  const dispatch = useDispatch();
+
+  s
+
+
   return (
     <View style={styles.container}>
       <Image
