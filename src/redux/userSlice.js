@@ -33,9 +33,8 @@ export const userSlice = createSlice({
         state.email == state.users.userMail &&
         state.password == state.users.userPassword
       ) {
-        console.log(true);
+        state.isAuth = true;
       } else {
-        console.log(false);
       }
     },
   },
