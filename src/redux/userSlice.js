@@ -1,4 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  asyncThunkCreator,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+export const login = createAsyncThunk(
+  "user/login",
+  async ({ username, password }) => {
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        username,
+        password
+      );
+      const user = userCredential.user;
+      const token = user.stsTokenManager.accessToken;
+      const userData = { token, user: user };
+      return userData;
+    } catch (error) {
+      console.log("userSlice createAsyncThunk function: ", error);
+    }
+  }
+);
 
 const initialState = {
   email: null,
@@ -38,6 +63,7 @@ export const userSlice = createSlice({
       }
     },
   },
+
 });
 
 export const { setEmail, setPassword, setIsLoading, setLogin } =
