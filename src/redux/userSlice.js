@@ -4,6 +4,7 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { act } from "react";
 
 export const login = createAsyncThunk(
   "user/login",
@@ -21,6 +22,7 @@ export const login = createAsyncThunk(
       return userData;
     } catch (error) {
       console.log("userSlice createAsyncThunk function: ", error);
+      throw error;
     }
   }
 );
@@ -30,10 +32,9 @@ const initialState = {
   password: null,
   isLoading: false,
   isAuth: false,
-  users: {
-    userMail: "test@test.com",
-    userPassword: "12345",
-  },
+  token: null,
+  user: null,
+  error: null,
 };
 
 export const userSlice = createSlice({
@@ -60,10 +61,27 @@ export const userSlice = createSlice({
       ) {
         state.isAuth = true;
       } else {
+        console.log("userSlice line 64", false);
       }
     },
   },
-
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state) => {
+        (state.isLoading = true), (state.isAuth = false);
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        (state.isLoading = false),
+          (state.isAuth = true),
+          (state.user = action.payload.user),
+          (state.token = action.payload.token);
+      })
+      .addCase(login.rejected, (state, action) => {
+        (state.isLoading = false),
+          (state.isAuth = false),
+          (state.error = action.error.message);
+      });
+  },
 });
 
 export const { setEmail, setPassword, setIsLoading, setLogin } =
