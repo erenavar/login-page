@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import CustomTextInput from "../components/CustomTextInput";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setPassword, setIsLoading } from "../redux/userSlice";
+import { setIsLoading } from "../redux/userSlice";
 import CustomButton from "../components/CustomButton";
 import Loading from "../components/Loading";
 import { login } from "../redux/userSlice";
 
 const LoginScreen = ({ navigation }) => {
-  const { email, password, isLoading } = useSelector((state) => state.user);
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+  const { isLoading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -21,14 +25,14 @@ const LoginScreen = ({ navigation }) => {
       <CustomTextInput
         title="E-mail"
         isSecureText={false}
-        handleOnChangeText={(text) => dispatch(setEmail(text))}
+        handleOnChangeText={(text) => setEmail(text)}
         handleValue={email}
         handlePlaceHolder="Your E-mail"
       />
       <CustomTextInput
         title="Password"
         isSecureText={true}
-        handleOnChangeText={(text) => dispatch(setPassword(text))}
+        handleOnChangeText={(text) => setPassword(text)}
         handleValue={password}
         handlePlaceHolder="Your Password"
       />
@@ -36,7 +40,7 @@ const LoginScreen = ({ navigation }) => {
       <CustomButton
         title="Login"
         setWidth="80%"
-        handleOnPress={() => dispatch(login(email, password))}
+        handleOnPress={() => dispatch(login({ email, password }))}
         buttonColor="#8E24AA"
         pressedButtonColor="lightgray"
       />

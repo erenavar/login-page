@@ -3,12 +3,12 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export const login = createAsyncThunk(
   "user/login",
-  async ({ username, password }) => {
+  async ({ email, password }) => {
     try {
       const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        username,
+        email,
         password
       );
       const user = userCredential.user;
@@ -23,8 +23,6 @@ export const login = createAsyncThunk(
 );
 
 const initialState = {
-  email: null,
-  password: null,
   isLoading: false,
   isAuth: false,
   token: null,
@@ -69,4 +67,3 @@ export const userSlice = createSlice({
 
 export const { setEmail, setPassword, setIsLoading } = userSlice.actions;
 export default userSlice.reducer;
- 
