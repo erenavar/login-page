@@ -1,10 +1,5 @@
-import {
-  createSlice,
-  asyncThunkCreator,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { act } from "react";
 
 export const login = createAsyncThunk(
   "user/login",
@@ -51,39 +46,27 @@ export const userSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    setIsAuth: (state, action) => {
-      state.isAuth = action.payload;
-    },
-    setLogin: (state) => {
-      if (
-        state.email == state.users.userMail &&
-        state.password == state.users.userPassword
-      ) {
-        state.isAuth = true;
-      } else {
-        console.log("userSlice line 64", false);
-      }
-    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
-        (state.isLoading = true), (state.isAuth = false);
+        state.isLoading = true;
+        state.isAuth = false;
       })
       .addCase(login.fulfilled, (state, action) => {
-        (state.isLoading = false),
-          (state.isAuth = true),
-          (state.user = action.payload.user),
-          (state.token = action.payload.token);
+        state.isLoading = false;
+        state.isAuth = true;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(login.rejected, (state, action) => {
-        (state.isLoading = false),
-          (state.isAuth = false),
-          (state.error = action.error.message);
+        state.isLoading = false;
+        state.isAuth = false;
+        state.error = action.error.message;
       });
   },
 });
 
-export const { setEmail, setPassword, setIsLoading, setLogin } =
-  userSlice.actions;
+export const { setEmail, setPassword, setIsLoading } = userSlice.actions;
 export default userSlice.reducer;
+ 
