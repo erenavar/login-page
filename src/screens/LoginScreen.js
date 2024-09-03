@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
       <CustomTextInput
         title="E-mail"
         isSecureText={false}
-        handleOnChangeText={(text) => setEmail(text)}
+        handleOnChangeText={(text) => setEmail(text.toLowerCase())}
         handleValue={email}
         handlePlaceHolder="Your E-mail"
       />
