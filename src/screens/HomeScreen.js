@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import CustomButton from "../components/CustomButton";
 
@@ -19,7 +19,7 @@ const HomeScreen = () => {
   };
 
   const fetchData = async () => {
-    await getDocs(collection(db, "users"));
+    const querySnapshot = await getDocs(collection(db, "cars"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data()}`);
     });
@@ -34,6 +34,13 @@ const HomeScreen = () => {
         buttonColor={"blue"}
         pressedButtonColor={"gray"}
         handleOnPress={sendData}
+      />
+      <CustomButton
+        title={"Get Data"}
+        setWidth={"40%"}
+        buttonColor={"blue"}
+        pressedButtonColor={"gray"}
+        handleOnPress={fetchData}
       />
     </View>
   );
