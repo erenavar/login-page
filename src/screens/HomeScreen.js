@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import CustomButton from "../components/CustomButton";
+import { useSafeAreaFrame } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
+  const [data, setData] = useState([]);
   const sendData = async () => {
     try {
       const docRef = await addDoc(collection(db, "cars"), {
@@ -20,14 +22,26 @@ const HomeScreen = () => {
 
   const fetchData = async () => {
     const querySnapshot = await getDocs(collection(db, "cars"));
+    const carsArray = [];
     querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
+      carsArray.push(doc.data());
     });
+    setData(carsArray);
+    console.log("data :>> ", carsArray);
   };
 
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      {data.map((item, index) => {
+        return (
+          <View key={index}>
+            <Text>{item.brand}</Text>
+            <Text>{item.model}</Text>
+            <Text>{item.modelYear}</Text>
+          </View>
+        );
+      })}
+
       <CustomButton
         title={"Save"}
         setWidth={"40%"}
