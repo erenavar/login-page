@@ -29,6 +29,7 @@ const HomeScreen = () => {
         model: "x",
         modelYear: 2020,
       });
+      alert("Car Added");
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -39,7 +40,7 @@ const HomeScreen = () => {
     try {
       await deleteDoc(doc(db, "cars", id));
       console.log("Document deleted with ID: ", id);
-      fetchData(); 
+      fetchData();
     } catch (error) {
       console.error("Error deleting document: ", error);
     }
@@ -57,21 +58,22 @@ const HomeScreen = () => {
           </View>
         );
       })}
-
-      <CustomButton
-        title={"Save"}
-        setWidth={"40%"}
-        buttonColor={"blue"}
-        pressedButtonColor={"gray"}
-        handleOnPress={sendData}
-      />
-      <CustomButton
-        title={"Get Data"}
-        setWidth={"40%"}
-        buttonColor={"blue"}
-        pressedButtonColor={"gray"}
-        handleOnPress={fetchData}
-      />
+      <View style={{ flexDirection: "row", gap: "15" }}>
+        <CustomButton
+          title={"Save"}
+          setWidth={"40%"}
+          buttonColor={"blue"}
+          pressedButtonColor={"gray"}
+          handleOnPress={sendData}
+        />
+        <CustomButton
+          title={"Get Data"}
+          setWidth={"40%"}
+          buttonColor={"blue"}
+          pressedButtonColor={"gray"}
+          handleOnPress={fetchData}
+        />
+      </View>
     </View>
   );
 };
