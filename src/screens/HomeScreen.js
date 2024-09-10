@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import CustomButton from "../components/CustomButton";
 
 const HomeScreen = () => {
   const sendData = async () => {
@@ -19,6 +20,13 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Text>HomeScreen</Text>
+      <CustomButton
+        title={"Save"}
+        setWidth={"40%"}
+        buttonColor={"blue"}
+        pressedButtonColor={"gray"}
+        handleOnPress={sendData}
+      />
     </View>
   );
 };
