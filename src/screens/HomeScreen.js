@@ -17,6 +17,14 @@ const HomeScreen = () => {
       console.error("Error adding document: ", e);
     }
   };
+
+  const fetchData = async () => {
+    await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Text>HomeScreen</Text>
