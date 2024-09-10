@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { Button, StyleSheet, Text, View } from "react-native";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import CustomButton from "../components/CustomButton";
-import { useSafeAreaFrame } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
   const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, "cars"));
+    const carsArray = [];
+    querySnapshot.forEach((doc) => {
+      carsArray.push({ ...doc.data(), id: doc.id });
+    });
+    setData(carsArray);
+  };
+
   const sendData = async () => {
     try {
       const docRef = await addDoc(collection(db, "cars"), {
@@ -20,14 +35,14 @@ const HomeScreen = () => {
     }
   };
 
-  const fetchData = async () => {
-    const querySnapshot = await getDocs(collection(db, "cars"));
-    const carsArray = [];
-    querySnapshot.forEach((doc) => {
-      carsArray.push(doc.data());
-    });
-    setData(carsArray);
-    console.log("data :>> ", carsArray);
+  const deleteData = async (id) => {
+    try {
+      await deleteDoc(doc(db, "cars", id));
+      console.log("Document deleted with ID: ", id);
+      fetchData(); 
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
   };
 
   return (
@@ -38,6 +53,7 @@ const HomeScreen = () => {
             <Text>{item.brand}</Text>
             <Text>{item.model}</Text>
             <Text>{item.modelYear}</Text>
+            <Button title="Delete" onPress={() => deleteData(item.id)} />
           </View>
         );
       })}
