@@ -1,6 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
 
 export const login = createAsyncThunk(
   "user/login",
@@ -15,6 +15,8 @@ export const login = createAsyncThunk(
       const user = userCredential.user;
       const token = user.stsTokenManager.accessToken;
       const userData = { token, user: user };
+      await AsyncStorage.setItem("userToken", token);
+
       return userData;
     } catch (error) {
       console.log("userSlice createAsyncThunk function: ", error);
@@ -22,6 +24,7 @@ export const login = createAsyncThunk(
     }
   }
 );
+
 
 const initialState = {
   isLoading: false,
