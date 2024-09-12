@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import CustomTextInput from "../components/CustomTextInput";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsLoading } from "../redux/userSlice";
 import CustomButton from "../components/CustomButton";
 import Loading from "../components/Loading";
 import { login } from "../redux/userSlice";

@@ -12,11 +12,12 @@ export const login = createAsyncThunk(
         email,
         password
       );
+
       const user = userCredential.user;
       const token = user.stsTokenManager.accessToken;
       const userData = { token, user: user };
-      await AsyncStorage.setItem("userToken", token);
 
+      await AsyncStorage.setItem("userToken", token);
       return userData;
     } catch (error) {
       console.log("userSlice createAsyncThunk function: ", error);
@@ -25,6 +26,12 @@ export const login = createAsyncThunk(
   }
 );
 
+export const autoLogin = createAsyncThunk("user/autoLogin", async () => {
+  try {
+    const token = await AsyncStorage.getItem("userToken");
+    console.log("token :>> ", token);
+  } catch (error) {}
+});
 
 const initialState = {
   isLoading: false,
