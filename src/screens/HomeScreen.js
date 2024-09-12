@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import {
   collection,
@@ -12,6 +12,10 @@ import CustomButton from "../components/CustomButton";
 
 const HomeScreen = () => {
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     const querySnapshot = await getDocs(collection(db, "cars"));
