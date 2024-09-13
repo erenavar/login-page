@@ -79,9 +79,20 @@ export const userSlice = createSlice({
         state.isAuth = false;
         state.error = action.error.message;
       })
-      .addCase(autoLogin.pending, (state) => {})
-      .addCase(autoLogin.fulfilled, (state, action) => {})
-      .addCase(autoLogin.rejected, (state, action) => {});
+      .addCase(autoLogin.pending, (state) => {
+        state.isLoading = true;
+        state.isAuth = false;
+      })
+      .addCase(autoLogin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuth = true;
+        state.token = action.payload;
+      })
+      .addCase(autoLogin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuth = false;
+        state.token = null;
+      });
   },
 });
 
