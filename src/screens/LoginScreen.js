@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import CustomTextInput from "../components/CustomTextInput";
 import { useDispatch, useSelector } from "react-redux";
 import CustomButton from "../components/CustomButton";
 import Loading from "../components/Loading";
-import { login } from "../redux/userSlice";
+import { login, autoLogin } from "../redux/userSlice";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -13,6 +13,10 @@ const LoginScreen = ({ navigation }) => {
   const { isLoading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(autoLogin());
+  }, []);
 
   return (
     <View style={styles.container}>

@@ -29,8 +29,14 @@ export const login = createAsyncThunk(
 export const autoLogin = createAsyncThunk("user/autoLogin", async () => {
   try {
     const token = await AsyncStorage.getItem("userToken");
-    console.log("token :>> ", token);
-  } catch (error) {}
+    if (token) {
+      return token;
+    } else {
+      throw new Error("User Not Found");
+    }
+  } catch (error) {
+    throw error;
+  }
 });
 
 const initialState = {
@@ -72,7 +78,10 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isAuth = false;
         state.error = action.error.message;
-      });
+      })
+      .addCase(autoLogin.pending, (state) => {})
+      .addCase(autoLogin.fulfilled, (state, action) => {})
+      .addCase(autoLogin.rejected, (state, action) => {});
   },
 });
 
