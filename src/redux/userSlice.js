@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export const login = createAsyncThunk(
   "user/login",
@@ -34,6 +34,18 @@ export const autoLogin = createAsyncThunk("user/autoLogin", async () => {
     } else {
       throw new Error("User Not Found");
     }
+  } catch (error) {
+    throw error;
+  }
+});
+
+const logOut = createAsyncThunk("user/logout", async () => {
+  try {
+    const auth = getAuth();
+    await signOut(auth);
+    await AsyncStorage.removeItem("userToken");
+    return null;
+    
   } catch (error) {
     throw error;
   }
