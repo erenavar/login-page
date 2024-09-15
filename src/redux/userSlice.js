@@ -45,7 +45,6 @@ const logOut = createAsyncThunk("user/logout", async () => {
     await signOut(auth);
     await AsyncStorage.removeItem("userToken");
     return null;
-    
   } catch (error) {
     throw error;
   }
@@ -104,6 +103,19 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isAuth = false;
         state.token = null;
+      })
+      .addCase(logout.pending, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isAuth = false;
+        state.isLoading = false;
+        state.error = null;
+        state.token = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
