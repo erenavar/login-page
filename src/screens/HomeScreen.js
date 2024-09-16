@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import {
   collection,
   addDoc,
@@ -30,7 +38,7 @@ const HomeScreen = () => {
     try {
       const docRef = await addDoc(collection(db, "cars"), {
         brand: "Tesla",
-        model: "x",
+        model: "X",
         modelYear: 2020,
       });
       alert("Car Added");
@@ -51,18 +59,30 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {data.map((item, index) => {
-        return (
-          <View key={index}>
-            <Text>{item.brand}</Text>
-            <Text>{item.model}</Text>
-            <Text>{item.modelYear}</Text>
-            <Button title="Delete" onPress={() => deleteData(item.id)} />
-          </View>
-        );
-      })}
-      <View style={{ flexDirection: "row", gap: "15" }}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        contentContainerStyle={{
+          alignItems: "center",
+        }}
+      >
+        {data.map((item) => {
+          return (
+            <View style={styles.dataLine}>
+              <Text style={styles.text}>{item.brand}</Text>
+              <Text style={styles.text}>{item.model}</Text>
+              <Text style={styles.text}>{item.modelYear}</Text>
+              <Button title="Delete" onPress={() => deleteData(item.id)} />
+            </View>
+          );
+        })}
+      </ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+          gap: "15",
+          justifyContent: "center",
+        }}
+      >
         <CustomButton
           title={"Save"}
           setWidth={"40%"}
@@ -78,7 +98,7 @@ const HomeScreen = () => {
           handleOnPress={fetchData}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -86,8 +106,14 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
+  },
+  dataLine: {
+    flexDirection: "row",
+    gap: 5,
     alignItems: "center",
-    justifyContent: "center",
+  },
+  text: {
+    fontSize: 17,
   },
 });
