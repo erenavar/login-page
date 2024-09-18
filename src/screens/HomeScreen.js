@@ -97,6 +97,13 @@ const HomeScreen = () => {
           pressedButtonColor={"gray"}
           handleOnPress={fetchData}
         />
+        <CustomButton
+          title={"Logout"}
+          setWidth={"40%"}
+          buttonColor={"red"}
+          pressedButtonColor={"gray"}
+          handleOnPress={fetchData}
+        />
       </View>
     </SafeAreaView>
   );
