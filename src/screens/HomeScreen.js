@@ -58,6 +58,9 @@ const HomeScreen = () => {
     }
   };
 
+  const logOut = () => {
+    
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -96,7 +99,7 @@ const HomeScreen = () => {
           setWidth={"40%"}
           buttonColor={"red"}
           pressedButtonColor={"gray"}
-          handleOnPress={fetchData}
+          handleOnPress={logOut}
         />
       </View>
     </SafeAreaView>
