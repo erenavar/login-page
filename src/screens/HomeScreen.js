@@ -76,13 +76,7 @@ const HomeScreen = () => {
           );
         })}
       </ScrollView>
-      <View
-        style={{
-          flexDirection: "row",
-          gap: "15",
-          justifyContent: "center",
-        }}
-      >
+      <View style={styles.buttonArea}>
         <CustomButton
           title={"Save"}
           setWidth={"40%"}
@@ -122,5 +116,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17,
+  },
+  buttonArea: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginHorizontal: 5,
+    gap: 5,
   },
 });
