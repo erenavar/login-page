@@ -39,7 +39,7 @@ export const autoLogin = createAsyncThunk("user/autoLogin", async () => {
   }
 });
 
-const logOut = createAsyncThunk("user/logout", async () => {
+export const logout = createAsyncThunk("user/logout", async () => {
   try {
     const auth = getAuth();
     await signOut(auth);

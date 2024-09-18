@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Button,
-  Dimensions,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -17,13 +16,17 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import CustomButton from "../components/CustomButton";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/userSlice";
 
 const HomeScreen = () => {
   const [data, setData] = useState([]);
+  const [fetched, setFetched] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetched]);
 
   const fetchData = async () => {
     const querySnapshot = await getDocs(collection(db, "cars"));
@@ -42,6 +45,7 @@ const HomeScreen = () => {
         modelYear: 2020,
       });
       alert("Car Added");
+      setFetched(!fetched);
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -53,13 +57,11 @@ const HomeScreen = () => {
       await deleteDoc(doc(db, "cars", id));
       console.log("Document deleted with ID: ", id);
       fetchData();
-    } catch (error) {
-      console.error("Error deleting document: ", error);
-    }
+    } catch (error) {}
   };
 
   const logOut = () => {
-    
+    dispatch(logout());
   };
   return (
     <SafeAreaView style={styles.container}>
