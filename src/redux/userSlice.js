@@ -104,16 +104,16 @@ export const userSlice = createSlice({
         state.isAuth = false;
         state.token = null;
       })
-      .addCase(logOut.pending, (state) => {
+      .addCase(logout.pending, (state) => {
         state.isLoading = false;
       })
-      .addCase(logOut.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state, action) => {
         state.isAuth = false;
         state.isLoading = false;
         state.error = null;
         state.token = null;
       })
-      .addCase(logOut.rejected, (state, action) => {
+      .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
