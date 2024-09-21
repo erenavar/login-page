@@ -70,9 +70,9 @@ const HomeScreen = () => {
           alignItems: "center",
         }}
       >
-        {data.map((item) => {
+        {data.map((item, index) => {
           return (
-            <View style={styles.dataLine}>
+            <View style={styles.dataLine} key={index}>
               <Text style={styles.text}>{item.brand}</Text>
               <Text style={styles.text}>{item.model}</Text>
               <Text style={styles.text}>{item.modelYear}</Text>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
 import CustomTextInput from "../components/CustomTextInput";
 import { useDispatch, useSelector } from "react-redux";
 import CustomButton from "../components/CustomButton";
@@ -78,13 +78,17 @@ const styles = StyleSheet.create({
     height: 200,
   },
   inputArea: {
+    flex: 0.5,
     width: "100%",
-    backgroundColor: "blue",
     alignItems: "center",
   },
 
   buttonArea: {
-    flex: 0.1,
+    width: "100%",
+    flex: 0.2,
+    alignItems: "center",
+    gap: 10,
+    paddingBottom: 20,
   },
   signUpButton: {
     marginTop: 40,
